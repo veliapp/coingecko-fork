@@ -17,10 +17,11 @@ var baseURL = "https://api.coingecko.com/api/v3"
 // Client struct
 type Client struct {
 	httpClient *http.Client
+	apiKey     string
 }
 
 // NewClient create new client object
-func NewClient(httpClient *http.Client) *Client {
+func NewClient(httpClient *http.Client, apiKey string) *Client {
 	if httpClient == nil {
 		httpClient = http.DefaultClient
 	}
@@ -48,6 +49,7 @@ func doReq(req *http.Request, client *http.Client) ([]byte, error) {
 // MakeReq HTTP request helper
 func (c *Client) MakeReq(url string) ([]byte, error) {
 	req, err := http.NewRequest("GET", url, nil)
+	req.Header.Set("x-cg-demo-api-key", c.apiKey)
 
 	if err != nil {
 		return nil, err
