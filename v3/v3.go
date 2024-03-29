@@ -12,7 +12,7 @@ import (
 	"github.com/djurica-surla/go-gecko/v3/types"
 )
 
-var baseURL = "https://api.coingecko.com/api/v3"
+var baseURL = "https://pro-api.coingecko.com/api/v3"
 
 // Client struct
 type Client struct {
@@ -50,7 +50,7 @@ func doReq(req *http.Request, client *http.Client) ([]byte, error) {
 // MakeReq HTTP request helper
 func (c *Client) MakeReq(url string) ([]byte, error) {
 	req, err := http.NewRequest("GET", url, nil)
-	req.Header.Set("x-cg-demo-api-key", c.apiKey)
+	req.Header.Set("x-cg-pro-api-key", c.apiKey)
 
 	if err != nil {
 		return nil, err
