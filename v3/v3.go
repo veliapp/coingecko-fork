@@ -25,7 +25,8 @@ func NewClient(httpClient *http.Client, apiKey string) *Client {
 	if httpClient == nil {
 		httpClient = http.DefaultClient
 	}
-	return &Client{httpClient: httpClient}
+
+	return &Client{httpClient: httpClient, apiKey: apiKey}
 }
 
 // helper
