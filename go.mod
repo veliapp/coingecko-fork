@@ -1,4 +1,4 @@
-module github.com/djurica-surla/go-gecko
+module github.com/veliapp/coingecko-fork
 
 require (
 	github.com/google/pprof v0.0.0-20190404155422-f8f10df84213 // indirect

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	gecko "github.com/djurica-surla/go-gecko/v3"
+	gecko "github.com/veliapp/coingecko-fork/v3"
 )
 
 func main() {

@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 
-	gecko "github.com/djurica-surla/go-gecko/v3"
-	geckoTypes "github.com/djurica-surla/go-gecko/v3/types"
+	gecko "github.com/veliapp/coingecko-fork/v3"
+	geckoTypes "github.com/veliapp/coingecko-fork/v3/types"
 )
 
 func main() {

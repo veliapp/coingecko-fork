@@ -8,8 +8,8 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/djurica-surla/go-gecko/format"
-	"github.com/djurica-surla/go-gecko/v3/types"
+	"github.com/veliapp/coingecko-fork/format"
+	"github.com/veliapp/coingecko-fork/v3/types"
 )
 
 var baseURL = "https://pro-api.coingecko.com/api/v3"
