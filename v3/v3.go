@@ -268,6 +268,12 @@ func (c *Client) CoinsIDHistory(id string, date string, localization bool) (*typ
 
 // CoinsIDMarketChart /coins/{id}/market_chart?vs_currency={usd, eur, jpy, etc.}&days={1,14,30,max}
 func (c *Client) CoinsIDMarketChart(id string, vs_currency string, days string) (*types.CoinsIDMarketChart, error) {
+	return c.CoinsIDMarketChartWithInterval(id, vs_currency, days, "")
+}
+
+// CoinsIDMarketChartWithInterval /coins/{id}/market_chart?vs_currency={usd, eur, jpy, etc.}&days={1,14,30,max}&interval={daily}
+// interval can be empty or daily, 5m and hourly require enterprise plan
+func (c *Client) CoinsIDMarketChartWithInterval(id, vs_currency, days, interval string) (*types.CoinsIDMarketChart, error) {
 	if len(id) == 0 || len(vs_currency) == 0 || len(days) == 0 {
 		return nil, fmt.Errorf("id, vs_currency, and days is required")
 	}
@@ -275,6 +281,10 @@ func (c *Client) CoinsIDMarketChart(id string, vs_currency string, days string) 
 	params := url.Values{}
 	params.Add("vs_currency", vs_currency)
 	params.Add("days", days)
+
+	if interval != "" {
+		params.Add("interval", interval)
+	}
 
 	url := fmt.Sprintf("%s/coins/%s/market_chart?%s", baseURL, id, params.Encode())
 	resp, err := c.MakeReq(url)
