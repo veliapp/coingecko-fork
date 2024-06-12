@@ -301,6 +301,42 @@ func (c *Client) CoinsIDMarketChartWithInterval(id, vs_currency, days, interval 
 	return &m, nil
 }
 
+// CoinsIDMarketChartRange /coins/{id}/market_chart/range?vs_currency={usd, eur, jpy, etc.}&from={ex 1609459200}&to={1640908800}&interval={daily}
+func (c *Client) CoinsIDMarketChartRange(id string, vs_currency string, days string) (*types.CoinsIDMarketChart, error) {
+	return c.CoinsIDMarketChartWithInterval(id, vs_currency, days, "")
+}
+
+// CoinsIDMarketChartRangeWithInterval /coins/{id}/market_chart/range?vs_currency={usd, eur, jpy, etc.}&from={ex 1609459200}&to={1640908800}&interval={daily}
+// interval can be empty or daily, 5m and hourly require enterprise plan
+func (c *Client) CoinsIDMarketChartRangeWithInterval(id, vs_currency, from, to, interval string) (*types.CoinsIDMarketChart, error) {
+	if len(id) == 0 || len(vs_currency) == 0 || len(from) == 0 || len(to) == 0 {
+		return nil, fmt.Errorf("id, vs_currency, from, and to is required")
+	}
+
+	params := url.Values{}
+	params.Add("vs_currency", vs_currency)
+	params.Add("from", from)
+	params.Add("to", to)
+
+	if interval != "" {
+		params.Add("interval", interval)
+	}
+
+	url := fmt.Sprintf("%s/coins/%s/market_chart/range?%s", baseURL, id, params.Encode())
+	resp, err := c.MakeReq(url)
+	if err != nil {
+		return nil, err
+	}
+
+	m := types.CoinsIDMarketChart{}
+	err = json.Unmarshal(resp, &m)
+	if err != nil {
+		return &m, err
+	}
+
+	return &m, nil
+}
+
 // CoinsIDStatusUpdates
 
 // CoinsIDContractAddress https://api.coingecko.com/api/v3/coins/{id}/contract/{contract_address}
